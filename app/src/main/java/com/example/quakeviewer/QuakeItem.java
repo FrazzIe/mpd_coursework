@@ -17,7 +17,7 @@ public class QuakeItem {
     public Double getLong() { return this.longitude; }
     public Double getMag() { return this.magnitude; }
 
-    public QuakeItem(String data, Double latitude, Double longitude) {
+    public QuakeItem(String data, String latitude, String longitude) {
         String[] fields = data.split(";");
         String[] depthInfo = getFieldValue(fields[3]).split(" ");
         this.origin = getFieldValue(fields[0]);
@@ -25,8 +25,8 @@ public class QuakeItem {
         this.depth = Integer.parseInt(depthInfo[0]);
         this.depthMeasurement = depthInfo[1];
         this.magnitude = Double.valueOf(getFieldValue(fields[4]));
-        this.latitude = latitude;
-        this.longitude = longitude;
+        this.latitude = Double.valueOf(latitude);
+        this.longitude = Double.valueOf(longitude);
     }
 
     private String getFieldValue(String field) {
