@@ -50,6 +50,33 @@ public class QuakeList {
         quakeTask.execute(this.dataSrc);
     }
 
+    private void AddQuake(QuakeItem item) {
+        this.quakes.add(item);
+
+        if (this.quakes.size() == 1) {
+            this.mostNorthQuake = item;
+            this.mostSouthQuake = item;
+            this.mostWestQuake = item;
+            this.mostEastQuake = item;
+            this.largestQuake = item;
+            this.shallowestQuake = item;
+            return;
+        }
+
+        if (item.IsMoreNorth(this.mostNorthQuake))
+            this.mostNorthQuake = item;
+        if (!item.IsMoreNorth(this.mostSouthQuake))
+            this.mostSouthQuake = item;
+        if (item.IsMoreEast(this.mostEastQuake))
+            this.mostEastQuake = item;
+        if (!item.IsMoreEast(this.mostWestQuake))
+            this.mostWestQuake = item;
+        if (item.IsDeeper(this.largestQuake))
+            this.largestQuake = item;
+        if (!item.IsDeeper(this.shallowestQuake))
+            this.shallowestQuake = item;
+    }
+
     private void ClearQuakes() {
         this.quakes.clear();
         this.mostNorthQuake = null;
@@ -100,7 +127,7 @@ public class QuakeList {
 
                     if (quakeData != null && quakeLat != null && quakeLong != null) {
                         QuakeItem item = new QuakeItem(quakeData, quakeLat, quakeLong);
-                        this.quakes.add(item);
+                        AddQuake(item);
                     }
                 }
 
