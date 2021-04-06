@@ -50,8 +50,17 @@ public class QuakeList {
         quakeTask.execute(this.dataSrc);
     }
 
-    private Boolean ParseFeed(InputStream feedStream) {
+    private void ClearQuakes() {
         this.quakes.clear();
+        this.mostNorthQuake = null;
+        this.mostSouthQuake = null;
+        this.mostWestQuake = null;
+        this.mostEastQuake = null;
+        this.largestQuake = null;
+        this.shallowestQuake = null;
+    }
+    private Boolean ParseFeed(InputStream feedStream) {
+        ClearQuakes();
 
         try {
             XmlPullParser xmlPullParser = Xml.newPullParser();
