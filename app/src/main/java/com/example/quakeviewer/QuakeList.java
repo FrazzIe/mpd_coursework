@@ -36,6 +36,12 @@ public class QuakeList {
     public QuakeList(URL url) {
         this.dataSrc = url;
         this.quakes = new ArrayList<QuakeItem>();
+        this.mostNorthQuake = null;
+        this.mostSouthQuake = null;
+        this.mostWestQuake = null;
+        this.mostEastQuake = null;
+        this.largestQuake = null;
+        this.shallowestQuake = null;
         this.Refresh();
     }
 
