@@ -37,4 +37,16 @@ public class QuakeItem {
 
         return field.substring(valueIdx).trim();
     }
+
+    public Boolean IsMoreNorth(QuakeItem obj) {
+        return this.latitude > obj.latitude;
+    }
+
+    public Boolean IsMoreEast(QuakeItem obj) {
+        return this.longitude > obj.longitude;
+    }
+
+    public Boolean IsDeeper(QuakeItem obj) {
+        return this.depth > obj.depth;
+    }
 }
