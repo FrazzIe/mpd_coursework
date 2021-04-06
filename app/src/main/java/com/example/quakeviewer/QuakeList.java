@@ -2,6 +2,10 @@ package com.example.quakeviewer;
 
 import android.os.AsyncTask;
 import android.util.Log;
+import android.util.Xml;
+
+import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -40,6 +44,60 @@ public class QuakeList {
         quakeTask.execute(this.dataSrc);
     }
 
+    private Boolean ParseFeed(InputStream feedStream) {
+        this.quakes.clear();
+
+        try {
+            XmlPullParser xmlPullParser = Xml.newPullParser();
+            xmlPullParser.setFeature(XmlPullParser.FEATURE_PROCESS_NAMESPACES, false);
+            xmlPullParser.setInput(feedStream, null);
+
+            Boolean quakeItem = false;
+            String quakeData = null;
+            String quakeLat = null;
+            String quakeLong = null;
+
+            while (xmlPullParser.next() != xmlPullParser.END_DOCUMENT) {
+                int eventType = xmlPullParser.getEventType();
+                String name = xmlPullParser.getName();
+
+                if (name == null)
+                    continue;
+
+                if (eventType == xmlPullParser.START_TAG || eventType == xmlPullParser.END_TAG) {
+                    quakeItem = name.equalsIgnoreCase("item");
+                    continue;
+                }
+
+                if (quakeItem) {
+                    String value = "";
+                    if (xmlPullParser.next() == xmlPullParser.TEXT) {
+                        value = xmlPullParser.getText();
+                        xmlPullParser.nextTag();
+                    }
+
+                    if (name.equalsIgnoreCase("description"))
+                        quakeData = value;
+                    else if (name.equalsIgnoreCase("lat"))
+                        quakeLat = value;
+                    else if (name.equalsIgnoreCase("long"))
+                        quakeLong = value;
+
+                    if (quakeData != null && quakeLat != null && quakeLong != null) {
+                        QuakeItem item = new QuakeItem(quakeData, quakeLat, quakeLong);
+                        this.quakes.add(item);
+                    }
+                }
+
+            }
+        } catch (IOException e) {
+            Log.e("e", "Error", e);
+        } catch (XmlPullParserException e) {
+            Log.e("e", "Error", e);
+        }
+        return true;
+    }
+
     private class QuakeTask extends AsyncTask<URL, Integer, Boolean> {
         @Override
         protected void onPreExecute() {
@@ -55,11 +113,12 @@ public class QuakeList {
                 URL feed = urls[0];
                 URLConnection feedConnection = feed.openConnection();
                 InputStream feedStream = feedConnection.getInputStream();
-                
+                return ParseFeed(feedStream);
             } catch (IOException e) {
                 Log.e("e", "Error", e);
             }
-            return true;
+
+            return false;
         }
 
         @Override
