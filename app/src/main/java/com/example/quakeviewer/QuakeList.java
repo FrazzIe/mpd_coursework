@@ -18,6 +18,7 @@ import java.util.List;
 
 public class QuakeList {
     private URL dataSrc;
+    private RecyclerView uiElement;
     private List<QuakeItem> quakes;
     private QuakeItem mostNorthQuake;
     private QuakeItem mostSouthQuake;
@@ -35,8 +36,9 @@ public class QuakeList {
     public QuakeItem getDeepestQuake() { return this.deepestQuake; }
     public QuakeItem getShallowestQuake() { return this.shallowestQuake; }
 
-    public QuakeList(URL url) {
+    public QuakeList(URL url, RecyclerView uiElement) {
         this.dataSrc = url;
+        this.uiElement = uiElement;
         this.quakes = new ArrayList<QuakeItem>();
         this.mostNorthQuake = null;
         this.mostSouthQuake = null;
