@@ -20,6 +20,7 @@ public class QuakeItem {
     public QuakeItem(String data, String latitude, String longitude) {
         String[] fields = data.split(";");
         String[] depthInfo = getFieldValue(fields[3]).split(" ");
+
         this.origin = getFieldValue(fields[0]);
         this.location = getFieldValue(fields[1]);
         this.depth = Integer.parseInt(depthInfo[0]);
@@ -35,7 +36,7 @@ public class QuakeItem {
         if (valueIdx == -1)
             return field;
 
-        return field.substring(valueIdx).trim();
+        return field.substring(valueIdx + 1).trim();
     }
 
     public Boolean IsMoreNorth(QuakeItem obj) {
