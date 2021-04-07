@@ -106,8 +106,15 @@ public class QuakeList {
                 if (name == null)
                     continue;
 
-                if (eventType == xmlPullParser.START_TAG || eventType == xmlPullParser.END_TAG) {
-                    quakeItem = name.equalsIgnoreCase("item");
+
+                if (eventType == xmlPullParser.START_TAG && name.equalsIgnoreCase("item")) {
+                    quakeItem = true;
+                    continue;
+                }
+
+                if (eventType == xmlPullParser.END_TAG) {
+                    if (name.equalsIgnoreCase("item"))
+                        quakeItem = false;
                     continue;
                 }
 
