@@ -4,8 +4,8 @@
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="2dp"
+        android:layout_height="80dp"
+        android:layout_margin="5dp"
         card_view:cardCornerRadius="@dimen/cardview_default_radius"
         card_view:cardElevation="@dimen/cardview_default_elevation">
 
@@ -18,20 +18,18 @@
             android:layout_marginLeft="1dp"
             android:gravity="start|top"
             android:text="@string/quake_location_label"
-            android:textSize="8sp" />
+            android:textSize="14sp" />
 
         <TextView
             android:id="@+id/quake_magnitude_label_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="top|end"
-            android:layout_marginStart="1dp"
-            android:layout_marginLeft="1dp"
-            android:layout_marginEnd="35dp"
-            android:layout_marginRight="35dp"
+            android:layout_marginEnd="1dp"
+            android:layout_marginRight="1dp"
             android:gravity="start|top"
             android:text="@string/quake_magnitude_label"
-            android:textSize="8sp" />
+            android:textSize="14sp" />
 
         <TextView
             android:id="@+id/quake_location"
@@ -42,20 +40,20 @@
             android:layout_marginLeft="1dp"
             android:fontFamily="sans-serif"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-            android:textSize="12sp" />
+            android:textSize="24sp" />
 
         <TextView
             android:id="@+id/quake_magnitude"
             android:layout_width="95dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="end"
+            android:layout_gravity="center_vertical|end"
             android:layout_marginTop="2dp"
-            android:layout_marginEnd="40dp"
-            android:layout_marginRight="40dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginRight="5dp"
             android:gravity="end"
             android:textAppearance="@style/TextAppearance.AppCompat.Display1"
             android:textColor="@color/black"
-            android:textSize="24sp" />
+            android:textSize="36sp" />
 
     </androidx.cardview.widget.CardView>
 </layout>
