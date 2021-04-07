@@ -1,9 +1,11 @@
 package com.example.quakeviewer;
 
 import android.os.AsyncTask;
+import android.os.Build;
 import android.util.Log;
 import android.util.Xml;
 
+import androidx.recyclerview.widget.RecyclerView;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
@@ -46,6 +48,7 @@ public class QuakeList {
     }
 
     public void Refresh() {
+        Log.e("INFO", "STARTING REFRESH");
         QuakeTask quakeTask = new QuakeTask();
         quakeTask.execute(this.dataSrc);
     }
@@ -87,12 +90,14 @@ public class QuakeList {
         this.shallowestQuake = null;
     }
     private Boolean ParseFeed(InputStream feedStream) {
+        Log.e("INFO", "PARSING FEED");
         ClearQuakes();
 
         try {
             XmlPullParser xmlPullParser = Xml.newPullParser();
             xmlPullParser.setFeature(XmlPullParser.FEATURE_PROCESS_NAMESPACES, false);
             xmlPullParser.setInput(feedStream, null);
+            xmlPullParser.nextTag();
 
             Boolean quakeItem = false;
             String quakeData = null;
@@ -105,7 +110,6 @@ public class QuakeList {
 
                 if (name == null)
                     continue;
-
 
                 if (eventType == xmlPullParser.START_TAG && name.equalsIgnoreCase("item")) {
                     quakeItem = true;
@@ -150,10 +154,12 @@ public class QuakeList {
     private class QuakeTask extends AsyncTask<URL, Integer, Boolean> {
         @Override
         protected void onPreExecute() {
+            Log.e("INFO", "PRE EXECUTE");
         }
 
         @Override
         protected Boolean doInBackground(URL... urls) {
+            Log.e("INFO", "DO IN BACKGROUND");
             if (urls.length == 0)
                 return false;
 
@@ -171,6 +177,9 @@ public class QuakeList {
 
         @Override
         protected void onPostExecute(Boolean success) {
+            Log.e("INFO", "POST EXECUTE");
+            RecyclerView.Adapter<QuakeAdapter.ViewHolder> uiRecyclerAdapter = new QuakeAdapter(getQuakes());
+            uiElement.setAdapter(uiRecyclerAdapter);
         }
     }
 }
