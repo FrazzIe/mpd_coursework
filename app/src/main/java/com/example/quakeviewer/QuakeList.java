@@ -95,7 +95,6 @@ public class QuakeList {
 
         try {
             XmlPullParser xmlPullParser = Xml.newPullParser();
-            xmlPullParser.setFeature(XmlPullParser.FEATURE_PROCESS_NAMESPACES, false);
             xmlPullParser.setInput(feedStream, null);
             xmlPullParser.nextTag();
 
