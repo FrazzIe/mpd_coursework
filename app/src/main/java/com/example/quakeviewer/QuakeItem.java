@@ -31,7 +31,7 @@ public class QuakeItem {
             e.printStackTrace();
         }
 
-        this.location = getFieldValue(fields[1]);
+        this.location = getLocationValue(fields[1]);
         this.depth = Integer.parseInt(depthInfo[0]);
         this.depthMeasurement = depthInfo[1];
         this.magnitude = Double.valueOf(getFieldValue(fields[4]));
@@ -52,6 +52,19 @@ public class QuakeItem {
         String origin = getFieldValue(field);
         SimpleDateFormat formatter = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss");
         return formatter.parse(origin);
+    }
+
+    private String getLocationValue(String field) {
+        String location = getFieldValue(field).toLowerCase();
+        String[] locations = location.split(",");
+
+        location = locations[0].substring(0, 1).toUpperCase() + locations[0].substring(1).toLowerCase();;
+
+        for (int i = 1; i < locations.length; i++) {
+            location += ", " + locations[i].substring(0, 1).toUpperCase() + locations[i].substring(1);
+        }
+
+        return location;
     }
 
     public Boolean IsMoreNorth(QuakeItem obj) {
