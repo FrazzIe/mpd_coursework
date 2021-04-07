@@ -1,7 +1,11 @@
 package com.example.quakeviewer;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class QuakeItem {
-    private String origin;
+    private Date origin;
     private String location;
     private int depth;
     private String depthMeasurement;
@@ -9,7 +13,7 @@ public class QuakeItem {
     private Double longitude;
     private Double magnitude;
 
-    public String getOrigin() { return this.origin; }
+    public Date getOrigin() { return this.origin; }
     public String getLocation() { return this.location; }
     public int getDepth() { return this.depth; }
     public String getDepthMeasurement() { return this.depthMeasurement; }
@@ -21,7 +25,12 @@ public class QuakeItem {
         String[] fields = data.split(";");
         String[] depthInfo = getFieldValue(fields[3]).split(" ");
 
-        this.origin = getFieldValue(fields[0]);
+        try {
+            this.origin = getOriginValue(fields[0]);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
         this.location = getFieldValue(fields[1]);
         this.depth = Integer.parseInt(depthInfo[0]);
         this.depthMeasurement = depthInfo[1];
@@ -37,6 +46,12 @@ public class QuakeItem {
             return field;
 
         return field.substring(valueIdx + 1).trim();
+    }
+
+    private Date getOriginValue(String field) throws ParseException {
+        String origin = getFieldValue(field);
+        SimpleDateFormat formatter = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss");
+        return formatter.parse(origin);
     }
 
     public Boolean IsMoreNorth(QuakeItem obj) {
