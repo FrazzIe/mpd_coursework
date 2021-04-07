@@ -2,6 +2,7 @@ package com.example.quakeviewer;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -18,6 +19,7 @@ import java.net.URL;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
+    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,11 +30,14 @@ public class MainActivity extends AppCompatActivity {
         RecyclerView.LayoutManager uiRecyclerLayout = new GridLayoutManager(this, 1);
         uiRecyclerView.setLayoutManager(uiRecyclerLayout);
 
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
         Log.d("INFO", "STARTED");
         URL feed = null;
 
         try {
-            feed = new URL("http://quakes.bgs.ac.uk/feeds/MhSeismology.xml");
+            feed = new URL("https://quakes.bgs.ac.uk/feeds/MhSeismology.xml");
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
