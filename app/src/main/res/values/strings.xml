@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Quake Viewer</string>
+    <string name="quake_location_label">Location</string>
+    <string name="quake_magnitude_label">Magnitude</string>
 </resources>
