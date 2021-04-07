@@ -150,7 +150,6 @@ public class QuakeList {
     private class QuakeTask extends AsyncTask<URL, Integer, Boolean> {
         @Override
         protected void onPreExecute() {
-            super.onPreExecute();
         }
 
         @Override
@@ -172,7 +171,6 @@ public class QuakeList {
 
         @Override
         protected void onPostExecute(Boolean success) {
-            super.onPostExecute(success);
         }
     }
 }
