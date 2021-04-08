@@ -42,7 +42,6 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         Log.d("INFO", "STARTED");
-        URL feed = null;
 
         try {
             //Setup feed URL
