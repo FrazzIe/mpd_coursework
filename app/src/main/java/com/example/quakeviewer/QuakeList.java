@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.util.Xml;
 import android.widget.Button;
@@ -43,6 +44,8 @@ public class QuakeList {
     private QuakeItem shallowestQuake;
     private QuakeItem oldestQuake;
     private QuakeItem newestQuake;
+    private Handler refreshHandler;
+    private Runnable refreshRunnable;
 
     public List<QuakeItem> getQuakes() { return this.quakes; }
     public QuakeItem getMostNorthQuake() { return this.mostNorthQuake; }
@@ -70,6 +73,17 @@ public class QuakeList {
         this.oldestQuake = null;
         this.newestQuake = null;
         this.Refresh();
+
+        this.refreshHandler = new Handler();
+        this.refreshRunnable = new Runnable() {
+            @Override
+            public void run() {
+                refreshHandler.postDelayed(this, 900000);
+                Refresh();
+            }
+        };
+
+        this.refreshHandler.post(refreshRunnable);
     }
 
     public void Refresh() {
