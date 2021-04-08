@@ -5,6 +5,7 @@ import android.os.Build;
 import android.util.Log;
 import android.util.Xml;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.borax12.materialdaterangepicker.date.DatePickerDialog;
@@ -23,7 +24,7 @@ import java.util.List;
 
 public class QuakeList {
     private URL dataSrc;
-    private RecyclerView uiElement;
+    private AppCompatActivity uiActivity;
     private DatePickerDialog datePicker;
     private List<QuakeItem> quakes;
     private QuakeItem mostNorthQuake;
@@ -46,7 +47,7 @@ public class QuakeList {
     public QuakeItem getOldestQuake() { return this.oldestQuake; }
     public QuakeItem getNewestQuake() { return this.newestQuake; }
 
-    public QuakeList(URL url, AppCompatActivity uiElement, DatePickerDialog datePicker) {
+    public QuakeList(URL url, AppCompatActivity uiActivity, DatePickerDialog datePicker) {
         this.dataSrc = url;
         this.uiElement = uiElement;
         this.datePicker = datePicker;
@@ -215,7 +216,8 @@ public class QuakeList {
         protected void onPostExecute(Boolean success) {
             Log.e("INFO", "POST EXECUTE");
             RecyclerView.Adapter<QuakeAdapter.ViewHolder> uiRecyclerAdapter = new QuakeAdapter(getQuakes());
-            uiElement.setAdapter(uiRecyclerAdapter);
+            RecyclerView uiRecyclerView = (RecyclerView) uiActivity.findViewById(R.id.quake_list);
+            uiRecyclerView.setAdapter(uiRecyclerAdapter);
 
             datePicker.setMinDate(dateToCalendar(getOldestQuake().getOrigin()));
             datePicker.setMaxDate(dateToCalendar(getNewestQuake().getOrigin()));

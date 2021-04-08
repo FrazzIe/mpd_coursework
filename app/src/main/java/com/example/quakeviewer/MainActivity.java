@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
                 now.get(Calendar.DAY_OF_MONTH)
         );
 
-        QuakeList quakeList = new QuakeList(feed, uiRecyclerView, datePickerDialog);
+        QuakeList quakeList = new QuakeList(feed, this, datePickerDialog);
 
 
         DatePickerDialog.OnDateSetListener datePickerDialogCallback = new DatePickerDialog.OnDateSetListener() {
