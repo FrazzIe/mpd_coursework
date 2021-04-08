@@ -140,6 +140,10 @@ public class QuakeList {
                     if (quakeData != null && quakeLat != null && quakeLong != null) {
                         QuakeItem item = new QuakeItem(quakeData, quakeLat, quakeLong);
                         AddQuake(item);
+
+                        quakeData = null;
+                        quakeLat = null;
+                        quakeLong = null;
                     }
                 }
 
