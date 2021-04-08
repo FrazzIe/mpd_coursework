@@ -5,6 +5,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+// S1916169 - Fraser Watt (Plagiarism check)
 public class QuakeItem implements Serializable {
     private Date origin;
     private String location;

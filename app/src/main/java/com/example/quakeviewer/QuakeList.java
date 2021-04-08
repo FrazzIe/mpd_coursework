@@ -30,6 +30,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
+// S1916169 - Fraser Watt (Plagiarism check)
 public class QuakeList {
     private URL dataSrc;
     private AppCompatActivity uiActivity;

@@ -21,6 +21,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+// S1916169 - Fraser Watt (Plagiarism check)
 public class MainActivity extends AppCompatActivity {
     private Toolbar toolbar;
 
@@ -30,10 +31,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //Setup RecyclerView layout
         RecyclerView uiRecyclerView = (RecyclerView) findViewById(R.id.quake_list);
         RecyclerView.LayoutManager uiRecyclerLayout = new GridLayoutManager(this, 1);
         uiRecyclerView.setLayoutManager(uiRecyclerLayout);
 
+        //Set toolbar as action bar
         toolbar = (Toolbar) findViewById(R.id.main_toolbar);
         setSupportActionBar(toolbar);
 

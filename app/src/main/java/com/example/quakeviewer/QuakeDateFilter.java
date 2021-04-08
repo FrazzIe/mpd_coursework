@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+// S1916169 - Fraser Watt (Plagiarism check)
 public class QuakeDateFilter extends AppCompatActivity {
     private Toolbar toolbar;
 

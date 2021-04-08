@@ -11,6 +11,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
+// S1916169 - Fraser Watt (Plagiarism check)
+// https://developer.android.com/guide/topics/ui/layout/recyclerview
 public class QuakeAdapter extends RecyclerView.Adapter<QuakeAdapter.ViewHolder> {
 
     private List<QuakeItem> localDataSet;
@@ -29,6 +31,8 @@ public class QuakeAdapter extends RecyclerView.Adapter<QuakeAdapter.ViewHolder> 
             super(view);
             quake = null;
             // Define click listener for the ViewHolder's View
+            //Get card view
+            //Add click listener to open the QuakeDetails activity which displays more adv info of a quake
             card = (CardView) view.findViewById(R.id.quake_card);
             card.setOnClickListener(new View.OnClickListener() {
                 @Override

@@ -19,6 +19,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+// S1916169 - Fraser Watt (Plagiarism check)
 public class QuakeDetails extends AppCompatActivity {
     private MapView quakeMapView;
     private Toolbar toolbar;
