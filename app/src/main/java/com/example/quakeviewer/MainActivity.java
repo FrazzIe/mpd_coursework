@@ -1,15 +1,16 @@
 package com.example.quakeviewer;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.icu.util.Calendar;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 
 import com.borax12.materialdaterangepicker.date.DatePickerDialog;
@@ -73,9 +74,15 @@ public class MainActivity extends AppCompatActivity {
 
         Button uiFilterBtn = (Button) findViewById(R.id.quake_filter_button);
         uiFilterBtn.setOnClickListener(view -> {
-//            Intent intent = new Intent(view.getContext(), QuakeDateFilter.class);
-//            view.getContext().startActivity(intent);
             datePickerDialog.show(getFragmentManager(), "datePickerDialog");
+        });
+
+        SwipeRefreshLayout uiRefreshLayout = findViewById(R.id.quake_swipe_container);
+        uiRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                quakeList.Refresh();
+            }
         });
     }
 }

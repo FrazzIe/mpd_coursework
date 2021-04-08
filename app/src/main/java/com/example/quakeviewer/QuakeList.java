@@ -3,6 +3,7 @@ package com.example.quakeviewer;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
+import android.os.Bundle;
 import android.util.Log;
 import android.util.Xml;
 import android.widget.Button;
@@ -10,6 +11,7 @@ import android.widget.Button;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.borax12.materialdaterangepicker.date.DatePickerDialog;
 
@@ -185,6 +187,7 @@ public class QuakeList {
         this.oldestQuake = null;
         this.newestQuake = null;
     }
+
     private Boolean ParseFeed(InputStream feedStream) {
         Log.e("INFO", "PARSING FEED");
         ClearQuakes();
@@ -262,6 +265,9 @@ public class QuakeList {
             Log.e("INFO", "PRE EXECUTE");
             Button uiFilterBtn = (Button) uiActivity.findViewById(R.id.quake_filter_button);
             uiFilterBtn.setClickable(false);
+
+            SwipeRefreshLayout uiRefreshLayout = uiActivity.findViewById(R.id.quake_swipe_container);
+            uiRefreshLayout.setRefreshing(true);
         }
 
         @Override
@@ -294,6 +300,9 @@ public class QuakeList {
 
             Button uiFilterBtn = (Button) uiActivity.findViewById(R.id.quake_filter_button);
             uiFilterBtn.setClickable(true);
+
+            SwipeRefreshLayout uiRefreshLayout = uiActivity.findViewById(R.id.quake_swipe_container);
+            uiRefreshLayout.setRefreshing(false);
         }
     }
 }
