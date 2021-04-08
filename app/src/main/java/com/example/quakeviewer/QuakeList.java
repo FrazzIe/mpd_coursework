@@ -128,6 +128,9 @@ public class QuakeList {
         quakeData.add(deepestQuake);
         quakeData.add(shallowestQuake);
 
+        Intent intent = new Intent(uiActivity.getApplicationContext(), QuakeDateFilter.class);
+        intent.putExtra("QuakeData",  quakeData);
+        uiActivity.startActivity(intent);
     }
 
     private void AddQuake(QuakeItem item) {

@@ -1,10 +1,11 @@
 package com.example.quakeviewer;
 
+import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class QuakeItem {
+public class QuakeItem implements Serializable {
     private Date origin;
     private String location;
     private int depth;
