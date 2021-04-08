@@ -60,8 +60,8 @@ public class MainActivity extends AppCompatActivity {
             public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth, int yearEnd, int monthOfYearEnd, int dayOfMonthEnd) {
                 try {
                     SimpleDateFormat dateFormat = new SimpleDateFormat("d-M-yyyy");
-                    Date fromDate = dateFormat.parse(dayOfMonth + "-" + monthOfYear + "-" + year);
-                    Date toDate = dateFormat.parse(dayOfMonthEnd + "-" + monthOfYearEnd + "-" + yearEnd);
+                    Date fromDate = dateFormat.parse((--dayOfMonth) + "-" + monthOfYear + "-" + year);
+                    Date toDate = dateFormat.parse((++dayOfMonthEnd) + "-" + monthOfYearEnd + "-" + yearEnd);
                     quakeList.OpenDateRange(fromDate, toDate);
                 } catch (ParseException e) {
                     e.printStackTrace();
