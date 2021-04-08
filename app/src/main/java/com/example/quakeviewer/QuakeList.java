@@ -14,6 +14,7 @@ import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class QuakeList {
@@ -27,6 +28,8 @@ public class QuakeList {
     private QuakeItem largestQuake;
     private QuakeItem deepestQuake;
     private QuakeItem shallowestQuake;
+    private QuakeItem oldestQuake;
+    private QuakeItem newestQuake;
 
     public List<QuakeItem> getQuakes() { return this.quakes; }
     public QuakeItem getMostNorthQuake() { return this.mostNorthQuake; }
@@ -35,6 +38,8 @@ public class QuakeList {
     public QuakeItem getMostEastQuake() { return this.mostEastQuake; }
     public QuakeItem getDeepestQuake() { return this.deepestQuake; }
     public QuakeItem getShallowestQuake() { return this.shallowestQuake; }
+    public QuakeItem getOldestQuake() { return this.oldestQuake; }
+    public QuakeItem getNewestQuake() { return this.newestQuake; }
 
     public QuakeList(URL url, RecyclerView uiElement) {
         this.dataSrc = url;
@@ -46,6 +51,8 @@ public class QuakeList {
         this.mostEastQuake = null;
         this.largestQuake = null;
         this.shallowestQuake = null;
+        this.oldestQuake = null;
+        this.newestQuake = null;
         this.Refresh();
     }
 
@@ -69,6 +76,8 @@ public class QuakeList {
             this.mostEastQuake = item;
             this.largestQuake = item;
             this.shallowestQuake = item;
+            this.oldestQuake = item;
+            this.newestQuake = item;
             return;
         }
 
@@ -84,6 +93,10 @@ public class QuakeList {
             this.largestQuake = item;
         if (!item.IsDeeper(this.shallowestQuake))
             this.shallowestQuake = item;
+        if (item.IsNewer(this.newestQuake))
+            this.newestQuake = item;
+        if (!item.IsNewer(this.oldestQuake))
+            this.oldestQuake = item;
     }
 
     private void ClearQuakes() {
@@ -94,6 +107,8 @@ public class QuakeList {
         this.mostEastQuake = null;
         this.largestQuake = null;
         this.shallowestQuake = null;
+        this.oldestQuake = null;
+        this.newestQuake = null;
     }
     private Boolean ParseFeed(InputStream feedStream) {
         Log.e("INFO", "PARSING FEED");

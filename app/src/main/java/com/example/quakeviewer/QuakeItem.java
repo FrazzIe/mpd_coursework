@@ -78,4 +78,6 @@ public class QuakeItem {
     public Boolean IsDeeper(QuakeItem obj) {
         return this.depth > obj.depth;
     }
+
+    public Boolean IsNewer(QuakeItem obj) { return this.origin.after(obj.origin); }
 }
