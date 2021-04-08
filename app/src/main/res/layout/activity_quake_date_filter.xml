@@ -1,0 +1,542 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".QuakeDateFilter">
+
+    <TextView
+        android:id="@+id/filter_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="8dp"
+        android:text="Filter Results"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/filter_divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="54dp"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="56dp"
+        app:layout_constraintStart_toStartOf="parent"
+        card_view:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/north_quake_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:text="Most North"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/north_quake_card"
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:layout_margin="10dp"
+                    card_view:cardCornerRadius="@dimen/cardview_default_radius"
+                    card_view:cardElevation="@dimen/cardview_default_elevation">
+
+                    <TextView
+                        android:id="@+id/north_quake_location_label_id"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start|top"
+                        android:layout_marginStart="1dp"
+                        android:layout_marginLeft="1dp"
+                        android:gravity="start|top"
+                        android:text="@string/quake_location_label"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/north_quake_magnitude_label_id"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="top|end"
+                        android:layout_marginEnd="1dp"
+                        android:layout_marginRight="1dp"
+                        android:gravity="start|top"
+                        android:text="@string/quake_magnitude_label"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/north_quake_location"
+                        android:layout_width="296dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start|center_vertical"
+                        android:layout_marginStart="1dp"
+                        android:layout_marginLeft="1dp"
+                        android:fontFamily="sans-serif"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                        android:textSize="24sp" />
+
+                    <TextView
+                        android:id="@+id/north_quake_magnitude"
+                        android:layout_width="95dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical|end"
+                        android:layout_marginTop="2dp"
+                        android:layout_marginEnd="5dp"
+                        android:layout_marginRight="5dp"
+                        android:gravity="end"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+                        android:textColor="@color/black"
+                        android:textSize="36sp" />
+
+                </androidx.cardview.widget.CardView>
+
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/south_quake_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:text="Most South"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/south_quake_card"
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:layout_margin="10dp"
+                    card_view:cardCornerRadius="@dimen/cardview_default_radius"
+                    card_view:cardElevation="@dimen/cardview_default_elevation">
+
+                    <TextView
+                        android:id="@+id/south_quake_location_label_id"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start|top"
+                        android:layout_marginStart="1dp"
+                        android:layout_marginLeft="1dp"
+                        android:gravity="start|top"
+                        android:text="@string/quake_location_label"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/south_quake_magnitude_label_id"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="top|end"
+                        android:layout_marginEnd="1dp"
+                        android:layout_marginRight="1dp"
+                        android:gravity="start|top"
+                        android:text="@string/quake_magnitude_label"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/south_quake_location"
+                        android:layout_width="296dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start|center_vertical"
+                        android:layout_marginStart="1dp"
+                        android:layout_marginLeft="1dp"
+                        android:fontFamily="sans-serif"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                        android:textSize="24sp" />
+
+                    <TextView
+                        android:id="@+id/south_quake_magnitude"
+                        android:layout_width="95dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical|end"
+                        android:layout_marginTop="2dp"
+                        android:layout_marginEnd="5dp"
+                        android:layout_marginRight="5dp"
+                        android:gravity="end"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+                        android:textColor="@color/black"
+                        android:textSize="36sp" />
+
+                </androidx.cardview.widget.CardView>
+
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/west_quake_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:text="Most West"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/west_quake_card"
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:layout_margin="10dp"
+                    card_view:cardCornerRadius="@dimen/cardview_default_radius"
+                    card_view:cardElevation="@dimen/cardview_default_elevation">
+
+                    <TextView
+                        android:id="@+id/west_quake_location_label_id"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start|top"
+                        android:layout_marginStart="1dp"
+                        android:layout_marginLeft="1dp"
+                        android:gravity="start|top"
+                        android:text="@string/quake_location_label"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/west_quake_magnitude_label_id"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="top|end"
+                        android:layout_marginEnd="1dp"
+                        android:layout_marginRight="1dp"
+                        android:gravity="start|top"
+                        android:text="@string/quake_magnitude_label"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/west_quake_location"
+                        android:layout_width="296dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start|center_vertical"
+                        android:layout_marginStart="1dp"
+                        android:layout_marginLeft="1dp"
+                        android:fontFamily="sans-serif"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                        android:textSize="24sp" />
+
+                    <TextView
+                        android:id="@+id/west_quake_magnitude"
+                        android:layout_width="95dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical|end"
+                        android:layout_marginTop="2dp"
+                        android:layout_marginEnd="5dp"
+                        android:layout_marginRight="5dp"
+                        android:gravity="end"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+                        android:textColor="@color/black"
+                        android:textSize="36sp" />
+
+                </androidx.cardview.widget.CardView>
+
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/east_quake_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:text="Most East"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/east_quake_card"
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:layout_margin="10dp"
+                    card_view:cardCornerRadius="@dimen/cardview_default_radius"
+                    card_view:cardElevation="@dimen/cardview_default_elevation">
+
+                    <TextView
+                        android:id="@+id/east_quake_location_label_id"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start|top"
+                        android:layout_marginStart="1dp"
+                        android:layout_marginLeft="1dp"
+                        android:gravity="start|top"
+                        android:text="@string/quake_location_label"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/east_quake_magnitude_label_id"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="top|end"
+                        android:layout_marginEnd="1dp"
+                        android:layout_marginRight="1dp"
+                        android:gravity="start|top"
+                        android:text="@string/quake_magnitude_label"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/east_quake_location"
+                        android:layout_width="296dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start|center_vertical"
+                        android:layout_marginStart="1dp"
+                        android:layout_marginLeft="1dp"
+                        android:fontFamily="sans-serif"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                        android:textSize="24sp" />
+
+                    <TextView
+                        android:id="@+id/east_quake_magnitude"
+                        android:layout_width="95dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical|end"
+                        android:layout_marginTop="2dp"
+                        android:layout_marginEnd="5dp"
+                        android:layout_marginRight="5dp"
+                        android:gravity="end"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+                        android:textColor="@color/black"
+                        android:textSize="36sp" />
+
+                </androidx.cardview.widget.CardView>
+
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/largest_quake_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:text="Largest"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/largest_quake_card"
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:layout_margin="10dp"
+                    card_view:cardCornerRadius="@dimen/cardview_default_radius"
+                    card_view:cardElevation="@dimen/cardview_default_elevation">
+
+                    <TextView
+                        android:id="@+id/largest_quake_location_label_id"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start|top"
+                        android:layout_marginStart="1dp"
+                        android:layout_marginLeft="1dp"
+                        android:gravity="start|top"
+                        android:text="@string/quake_location_label"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/largest_quake_magnitude_label_id"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="top|end"
+                        android:layout_marginEnd="1dp"
+                        android:layout_marginRight="1dp"
+                        android:gravity="start|top"
+                        android:text="@string/quake_magnitude_label"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/largest_quake_location"
+                        android:layout_width="296dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start|center_vertical"
+                        android:layout_marginStart="1dp"
+                        android:layout_marginLeft="1dp"
+                        android:fontFamily="sans-serif"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                        android:textSize="24sp" />
+
+                    <TextView
+                        android:id="@+id/largest_quake_magnitude"
+                        android:layout_width="95dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical|end"
+                        android:layout_marginTop="2dp"
+                        android:layout_marginEnd="5dp"
+                        android:layout_marginRight="5dp"
+                        android:gravity="end"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+                        android:textColor="@color/black"
+                        android:textSize="36sp" />
+
+                </androidx.cardview.widget.CardView>
+
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/deepest_quake_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:text="Deepest"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/deepest_quake_card"
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:layout_margin="10dp"
+                    card_view:cardCornerRadius="@dimen/cardview_default_radius"
+                    card_view:cardElevation="@dimen/cardview_default_elevation">
+
+                    <TextView
+                        android:id="@+id/deepest_quake_location_label_id"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start|top"
+                        android:layout_marginStart="1dp"
+                        android:layout_marginLeft="1dp"
+                        android:gravity="start|top"
+                        android:text="@string/quake_location_label"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/deepest_quake_magnitude_label_id"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="top|end"
+                        android:layout_marginEnd="1dp"
+                        android:layout_marginRight="1dp"
+                        android:gravity="start|top"
+                        android:text="@string/quake_magnitude_label"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/deepest_quake_location"
+                        android:layout_width="296dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start|center_vertical"
+                        android:layout_marginStart="1dp"
+                        android:layout_marginLeft="1dp"
+                        android:fontFamily="sans-serif"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                        android:textSize="24sp" />
+
+                    <TextView
+                        android:id="@+id/deepest_quake_magnitude"
+                        android:layout_width="95dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical|end"
+                        android:layout_marginTop="2dp"
+                        android:layout_marginEnd="5dp"
+                        android:layout_marginRight="5dp"
+                        android:gravity="end"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+                        android:textColor="@color/black"
+                        android:textSize="36sp" />
+
+                </androidx.cardview.widget.CardView>
+
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/shallowest_quake_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:text="Shallowest"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/shallowest_quake_card"
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:layout_margin="10dp"
+                    card_view:cardCornerRadius="@dimen/cardview_default_radius"
+                    card_view:cardElevation="@dimen/cardview_default_elevation">
+
+                    <TextView
+                        android:id="@+id/shallowest_quake_location_label_id"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start|top"
+                        android:layout_marginStart="1dp"
+                        android:layout_marginLeft="1dp"
+                        android:gravity="start|top"
+                        android:text="@string/quake_location_label"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/shallowest_quake_magnitude_label_id"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="top|end"
+                        android:layout_marginEnd="1dp"
+                        android:layout_marginRight="1dp"
+                        android:gravity="start|top"
+                        android:text="@string/quake_magnitude_label"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/shallowest_quake_location"
+                        android:layout_width="296dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start|center_vertical"
+                        android:layout_marginStart="1dp"
+                        android:layout_marginLeft="1dp"
+                        android:fontFamily="sans-serif"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                        android:textSize="24sp" />
+
+                    <TextView
+                        android:id="@+id/shallowest_quake_magnitude"
+                        android:layout_width="95dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical|end"
+                        android:layout_marginTop="2dp"
+                        android:layout_marginEnd="5dp"
+                        android:layout_marginRight="5dp"
+                        android:gravity="end"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+                        android:textColor="@color/black"
+                        android:textSize="36sp" />
+
+                </androidx.cardview.widget.CardView>
+
+            </FrameLayout>
+        </LinearLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

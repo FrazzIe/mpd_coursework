@@ -11,8 +11,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.QuakeViewer">
-        <meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyBFVb_3K91WXlhTr-OchfP7Q0mhmq5xwvk"/>
-        <activity android:name=".QuakeDetails"></activity>
+        <activity android:name=".QuakeDateFilter"></activity>
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyBFVb_3K91WXlhTr-OchfP7Q0mhmq5xwvk" />
+
+        <activity android:name=".QuakeDetails" />
         <activity android:name=".quake_detials" />
         <activity android:name=".MainActivity">
             <intent-filter>
