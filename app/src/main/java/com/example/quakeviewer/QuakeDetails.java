@@ -12,6 +12,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
@@ -62,11 +63,13 @@ public class QuakeDetails extends AppCompatActivity {
         quakeMapView.getMapAsync(new OnMapReadyCallback() {
             @Override
             public void onMapReady(GoogleMap googleMap) {
+                MarkerOptions quakeMarkerOptions = new MarkerOptions().position(quakeCoords).title(originDateText);
+                quakeMarkerOptions.icon(CustomBitmapDescriptorFactory.fromColorString(getMagnitudeColor(magnitude)));
                 quakeMap[0] = googleMap;
                 quakeMap[0].getUiSettings().setZoomControlsEnabled(true);
                 quakeMap[0].getUiSettings().setZoomGesturesEnabled(true);
                 quakeMap[0].getUiSettings().setCompassEnabled(true);
-                quakeMap[0].addMarker(new MarkerOptions().position(quakeCoords).title(originDateText));
+                quakeMap[0].addMarker(quakeMarkerOptions);
                 quakeMap[0].moveCamera(CameraUpdateFactory.newLatLng(quakeCoords));
             }
         });
@@ -91,5 +94,18 @@ public class QuakeDetails extends AppCompatActivity {
     public void onLowMemory() {
         super.onLowMemory();
         quakeMapView.onLowMemory();
+    }
+
+    private String getMagnitudeColor(Double magnitude) {
+        if (magnitude < 2.0)
+            return "#" + Integer.toHexString(getResources().getColor(R.color.quake_not_felt));
+        if (magnitude < 3.8)
+            return "#" + Integer.toHexString(getResources().getColor(R.color.quake_weak));
+        if (magnitude < 6.5)
+            return "#" + Integer.toHexString(getResources().getColor(R.color.quake_moderate));
+        if (magnitude < 8.5)
+            return "#" + Integer.toHexString(getResources().getColor(R.color.quake_very_strong));
+        else
+            return "#" + Integer.toHexString(getResources().getColor(R.color.quake_violent));
     }
 }
