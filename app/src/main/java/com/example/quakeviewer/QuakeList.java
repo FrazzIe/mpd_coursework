@@ -55,6 +55,10 @@ public class QuakeList {
         quakeTask.execute(this.dataSrc);
     }
 
+    public void OpenDateRange(Date fromDate, Date toDate) {
+
+    }
+
     private void AddQuake(QuakeItem item) {
         this.quakes.add(item);
 
