@@ -6,6 +6,9 @@ import android.util.Log;
 import android.util.Xml;
 
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.borax12.materialdaterangepicker.date.DatePickerDialog;
+
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
@@ -14,12 +17,14 @@ import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
 public class QuakeList {
     private URL dataSrc;
     private RecyclerView uiElement;
+    private DatePickerDialog datePicker;
     private List<QuakeItem> quakes;
     private QuakeItem mostNorthQuake;
     private QuakeItem mostSouthQuake;
@@ -41,9 +46,10 @@ public class QuakeList {
     public QuakeItem getOldestQuake() { return this.oldestQuake; }
     public QuakeItem getNewestQuake() { return this.newestQuake; }
 
-    public QuakeList(URL url, RecyclerView uiElement) {
+    public QuakeList(URL url, AppCompatActivity uiElement, DatePickerDialog datePicker) {
         this.dataSrc = url;
         this.uiElement = uiElement;
+        this.datePicker = datePicker;
         this.quakes = new ArrayList<QuakeItem>();
         this.mostNorthQuake = null;
         this.mostSouthQuake = null;
@@ -176,6 +182,12 @@ public class QuakeList {
     }
 
     private class QuakeTask extends AsyncTask<URL, Integer, Boolean> {
+        private Calendar dateToCalendar(Date date) {
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(date);
+            return calendar;
+        }
+
         @Override
         protected void onPreExecute() {
             Log.e("INFO", "PRE EXECUTE");
@@ -204,6 +216,9 @@ public class QuakeList {
             Log.e("INFO", "POST EXECUTE");
             RecyclerView.Adapter<QuakeAdapter.ViewHolder> uiRecyclerAdapter = new QuakeAdapter(getQuakes());
             uiElement.setAdapter(uiRecyclerAdapter);
+
+            datePicker.setMinDate(dateToCalendar(getOldestQuake().getOrigin()));
+            datePicker.setMaxDate(dateToCalendar(getNewestQuake().getOrigin()));
         }
     }
 }

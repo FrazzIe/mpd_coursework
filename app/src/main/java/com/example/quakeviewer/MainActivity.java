@@ -45,9 +45,16 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        QuakeList quakeList = new QuakeList(feed, uiRecyclerView);
-
         Calendar now = Calendar.getInstance();
+        DatePickerDialog datePickerDialog = DatePickerDialog.newInstance(null,
+                now.get(Calendar.YEAR),
+                now.get(Calendar.MONTH),
+                now.get(Calendar.DAY_OF_MONTH)
+        );
+
+        QuakeList quakeList = new QuakeList(feed, uiRecyclerView, datePickerDialog);
+
+
         DatePickerDialog.OnDateSetListener datePickerDialogCallback = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth, int yearEnd, int monthOfYearEnd, int dayOfMonthEnd) {
@@ -55,18 +62,14 @@ public class MainActivity extends AppCompatActivity {
                     SimpleDateFormat dateFormat = new SimpleDateFormat("dd-M-yyyy");
                     Date fromDate = dateFormat.parse(dayOfMonth + "-" + monthOfYear + "-" + year);
                     Date toDate = dateFormat.parse(dayOfMonthEnd + "-" + monthOfYearEnd + "-" + yearEnd);
-                    QuakeList.OpenDateRange(fromDate, toDate);
+                    quakeList.OpenDateRange(fromDate, toDate);
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
             }
         };
 
-        DatePickerDialog datePickerDialog = DatePickerDialog.newInstance(datePickerDialogCallback,
-                now.get(Calendar.YEAR),
-                now.get(Calendar.MONTH),
-                now.get(Calendar.DAY_OF_MONTH)
-        );
+        datePickerDialog.setOnDateSetListener(datePickerDialogCallback);
 
         Button uiFilterBtn = (Button) findViewById(R.id.quake_filter_button);
         uiFilterBtn.setOnClickListener(view -> {
