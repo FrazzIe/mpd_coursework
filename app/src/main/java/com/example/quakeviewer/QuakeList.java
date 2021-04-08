@@ -49,7 +49,7 @@ public class QuakeList {
 
     public QuakeList(URL url, AppCompatActivity uiActivity, DatePickerDialog datePicker) {
         this.dataSrc = url;
-        this.uiElement = uiElement;
+        this.uiActivity = uiActivity;
         this.datePicker = datePicker;
         this.quakes = new ArrayList<QuakeItem>();
         this.mostNorthQuake = null;
@@ -192,6 +192,8 @@ public class QuakeList {
         @Override
         protected void onPreExecute() {
             Log.e("INFO", "PRE EXECUTE");
+            Button uiFilterBtn = (Button) uiActivity.findViewById(R.id.quake_filter_button);
+            uiFilterBtn.setClickable(false);
         }
 
         @Override
@@ -221,6 +223,9 @@ public class QuakeList {
 
             datePicker.setMinDate(dateToCalendar(getOldestQuake().getOrigin()));
             datePicker.setMaxDate(dateToCalendar(getNewestQuake().getOrigin()));
+
+            Button uiFilterBtn = (Button) uiActivity.findViewById(R.id.quake_filter_button);
+            uiFilterBtn.setClickable(true);
         }
     }
 }
