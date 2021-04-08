@@ -1,10 +1,12 @@
 package com.example.quakeviewer;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
@@ -18,13 +20,30 @@ public class QuakeAdapter extends RecyclerView.Adapter<QuakeAdapter.ViewHolder> 
      * (custom ViewHolder).
      */
     public static class ViewHolder extends RecyclerView.ViewHolder {
+        private QuakeItem quake;
+        private final CardView card;
         private final TextView textLocation;
         private final TextView textMagnitude;
 
         public ViewHolder(View view) {
             super(view);
+            quake = null;
             // Define click listener for the ViewHolder's View
-
+            card = (CardView) view.findViewById(R.id.quake_card);
+            card.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(view.getContext(), QuakeDetails.class);
+                    intent.putExtra("origin", getItem().getOrigin().getTime());
+                    intent.putExtra("location", getItem().getLocation());
+                    intent.putExtra("depth", getItem().getDepth());
+                    intent.putExtra("depthMeasurement", getItem().getDepthMeasurement());
+                    intent.putExtra("latitude", getItem().getLat());
+                    intent.putExtra("longitude", getItem().getLong());
+                    intent.putExtra("magnitude", getItem().getMag());
+                    view.getContext().startActivity(intent);
+                }
+            });
             textLocation = (TextView) view.findViewById(R.id.quake_location);
             textMagnitude = (TextView) view.findViewById(R.id.quake_magnitude);
         }
@@ -36,6 +55,9 @@ public class QuakeAdapter extends RecyclerView.Adapter<QuakeAdapter.ViewHolder> 
         public TextView getMagnitude() {
             return textMagnitude;
         }
+
+        public QuakeItem getItem() { return this.quake; }
+        public void setItem(QuakeItem quake) { this.quake = quake; }
     }
 
     /**
@@ -66,6 +88,7 @@ public class QuakeAdapter extends RecyclerView.Adapter<QuakeAdapter.ViewHolder> 
         final QuakeItem quake = localDataSet.get(position);
         viewHolder.getLocation().setText(quake.getLocation());
         viewHolder.getMagnitude().setText(quake.getMag().toString());
+        viewHolder.setItem(quake);
     }
 
     // Return the size of your dataset (invoked by the layout manager)
