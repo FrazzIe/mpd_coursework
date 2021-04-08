@@ -42,6 +42,7 @@ public class QuakeList {
     public QuakeItem getMostSouthQuake() { return this.mostSouthQuake; }
     public QuakeItem getMostWestQuake() { return this.mostWestQuake; }
     public QuakeItem getMostEastQuake() { return this.mostEastQuake; }
+    public QuakeItem getLargestQuake() { return this.largestQuake; }
     public QuakeItem getDeepestQuake() { return this.deepestQuake; }
     public QuakeItem getShallowestQuake() { return this.shallowestQuake; }
     public QuakeItem getOldestQuake() { return this.oldestQuake; }
@@ -82,6 +83,7 @@ public class QuakeList {
             this.mostWestQuake = item;
             this.mostEastQuake = item;
             this.largestQuake = item;
+            this.deepestQuake = item;
             this.shallowestQuake = item;
             this.oldestQuake = item;
             this.newestQuake = item;
@@ -96,8 +98,10 @@ public class QuakeList {
             this.mostEastQuake = item;
         if (!item.IsMoreEast(this.mostWestQuake))
             this.mostWestQuake = item;
-        if (item.IsDeeper(this.largestQuake))
+        if (item.IsLarger(this.largestQuake))
             this.largestQuake = item;
+        if (item.IsDeeper(this.deepestQuake))
+            this.deepestQuake = item;
         if (!item.IsDeeper(this.shallowestQuake))
             this.shallowestQuake = item;
         if (item.IsNewer(this.newestQuake))

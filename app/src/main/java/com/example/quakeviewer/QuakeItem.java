@@ -75,6 +75,8 @@ public class QuakeItem {
         return this.longitude > obj.longitude;
     }
 
+    public Boolean IsLarger(QuakeItem obj) { return this.magnitude > obj.magnitude; }
+
     public Boolean IsDeeper(QuakeItem obj) {
         return this.depth > obj.depth;
     }
