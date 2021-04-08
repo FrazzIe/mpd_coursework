@@ -56,6 +56,19 @@ public class QuakeAdapter extends RecyclerView.Adapter<QuakeAdapter.ViewHolder> 
             return textMagnitude;
         }
 
+        public int getMagnitudeColor(Double magnitude) {
+            if (magnitude < 2.0)
+                return itemView.getResources().getColor(R.color.quake_not_felt);
+            if (magnitude < 3.8)
+                return itemView.getResources().getColor(R.color.quake_weak);
+            if (magnitude < 6.5)
+                return itemView.getResources().getColor(R.color.quake_moderate);
+            if (magnitude < 8.5)
+                return itemView.getResources().getColor(R.color.quake_very_strong);
+            else
+                return itemView.getResources().getColor(R.color.quake_violent);
+        }
+
         public QuakeItem getItem() { return this.quake; }
         public void setItem(QuakeItem quake) { this.quake = quake; }
     }
@@ -88,6 +101,7 @@ public class QuakeAdapter extends RecyclerView.Adapter<QuakeAdapter.ViewHolder> 
         final QuakeItem quake = localDataSet.get(position);
         viewHolder.getLocation().setText(quake.getLocation());
         viewHolder.getMagnitude().setText(quake.getMag().toString());
+        viewHolder.getMagnitude().setTextColor(viewHolder.getMagnitudeColor(quake.getMag()));
         viewHolder.setItem(quake);
     }
 

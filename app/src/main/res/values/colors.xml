@@ -9,4 +9,10 @@
     <color name="white">#FFFFFFFF</color>
     <color name="cyan">#00BCD4</color>
     <color name="light_blue">#03A9F4</color>
+    <color name="quake_not_felt">#FCFCFC</color>
+    <color name="quake_weak">#AFD3FD</color>
+    <color name="quake_moderate">#7AFD91</color>
+    <color name="quake_very_strong">#FDC600</color>
+    <color name="quake_violent">#FD0000</color>
+
 </resources>
