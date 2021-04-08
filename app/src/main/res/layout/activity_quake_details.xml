@@ -6,27 +6,27 @@
     android:layout_height="match_parent"
     tools:context=".QuakeDetails">
 
-    <TextView
-        android:id="@+id/info_title"
-        android:layout_width="wrap_content"
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/info_toolbar"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginLeft="24dp"
-        android:layout_marginTop="8dp"
-        android:text="Earthquake Info"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-        android:textColor="@color/black"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginTop="56dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <FrameLayout
                 android:layout_width="match_parent"
@@ -54,7 +54,7 @@
                                 android:id="@+id/info_date_label"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="Date" />
+                                android:text="@string/info_date_label" />
                         </TableRow>
 
                         <TableRow
@@ -65,7 +65,6 @@
                                 android:id="@+id/info_date"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="17/06/99"
                                 android:textAppearance="@style/TextAppearance.AppCompat.Large" />
                         </TableRow>
 
@@ -77,7 +76,7 @@
                                 android:id="@+id/info_location_label"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Location" />
+                                android:text="@string/info_location_label" />
                         </TableRow>
 
                         <TableRow
@@ -88,7 +87,6 @@
                                 android:id="@+id/info_location"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="North atlantic ocean"
                                 android:textAppearance="@style/TextAppearance.AppCompat.Large" />
                         </TableRow>
 
@@ -100,7 +98,7 @@
                                 android:id="@+id/info_magnitude_label"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Magnitude" />
+                                android:text="@string/info_magnitude_label" />
                         </TableRow>
 
                         <TableRow
@@ -111,7 +109,6 @@
                                 android:id="@+id/info_magnitude"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="9.0"
                                 android:textAppearance="@style/TextAppearance.AppCompat.Large" />
                         </TableRow>
 
@@ -123,7 +120,7 @@
                                 android:id="@+id/info_depth_label"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="Depth" />
+                                android:text="@string/info_depth_label" />
                         </TableRow>
 
                         <TableRow
@@ -134,7 +131,6 @@
                                 android:id="@+id/info_depth"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="9km"
                                 android:textAppearance="@style/TextAppearance.AppCompat.Large" />
                         </TableRow>
                     </TableLayout>
@@ -159,6 +155,7 @@
                 </androidx.cardview.widget.CardView>
 
             </FrameLayout>
+
         </LinearLayout>
     </ScrollView>
 

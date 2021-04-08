@@ -1,6 +1,7 @@
 package com.example.quakeviewer;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,7 +19,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class QuakeDetails extends AppCompatActivity {
-    MapView quakeMapView;
+    private MapView quakeMapView;
+    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +35,10 @@ public class QuakeDetails extends AppCompatActivity {
         Double latitude = intent.getDoubleExtra("latitude", 0.0);
         Double longitude = intent.getDoubleExtra("longitude", 0.0);
         Double magnitude = intent.getDoubleExtra("magnitude", 0.0);
+
+        toolbar = (Toolbar) findViewById(R.id.info_toolbar);
+        toolbar.setTitle(R.string.info_title);
+        setSupportActionBar(toolbar);
 
         TextView dateText = findViewById(R.id.info_date);
         TextView locationText = findViewById(R.id.info_location);

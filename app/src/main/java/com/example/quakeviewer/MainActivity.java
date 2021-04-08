@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
         RecyclerView.LayoutManager uiRecyclerLayout = new GridLayoutManager(this, 1);
         uiRecyclerView.setLayoutManager(uiRecyclerLayout);
 
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.main_toolbar);
         setSupportActionBar(toolbar);
 
         Log.d("INFO", "STARTED");

@@ -1,6 +1,7 @@
 package com.example.quakeviewer;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 
 import android.content.Intent;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 public class QuakeDateFilter extends AppCompatActivity {
+    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,6 +20,11 @@ public class QuakeDateFilter extends AppCompatActivity {
         setContentView(R.layout.activity_quake_date_filter);
         Intent intent = getIntent();
         ArrayList<QuakeItem> quakeData = (ArrayList<QuakeItem>) intent.getSerializableExtra("QuakeData");
+
+        toolbar = (Toolbar) findViewById(R.id.filter_toolbar);
+        toolbar.setTitle(R.string.filter_title);
+        setSupportActionBar(toolbar);
+
 
         TextView northQuakeLocation = findViewById(R.id.north_quake_location);
         TextView northQuakeMagnitude = findViewById(R.id.north_quake_magnitude);

@@ -7,25 +7,13 @@
     android:layout_height="match_parent"
     tools:context=".QuakeDateFilter">
 
-    <TextView
-        android:id="@+id/filter_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginLeft="24dp"
-        android:layout_marginTop="8dp"
-        android:text="Filter Results"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-        android:textColor="@color/black"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <View
-        android:id="@+id/filter_divider"
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/filter_toolbar"
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginTop="54dp"
-        android:background="?android:attr/listDivider"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -47,7 +35,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginLeft="8dp"
-                android:text="Most North"
+                android:text="@string/north_quake_title"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
             <FrameLayout
@@ -118,7 +106,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginLeft="8dp"
-                android:text="Most South"
+                android:text="@string/south_quake_title"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
             <FrameLayout
@@ -189,7 +177,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginLeft="8dp"
-                android:text="Most West"
+                android:text="@string/west_quake_title"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
             <FrameLayout
@@ -260,7 +248,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginLeft="8dp"
-                android:text="Most East"
+                android:text="@string/east_quake_title"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
             <FrameLayout
@@ -331,7 +319,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginLeft="8dp"
-                android:text="Largest"
+                android:text="@string/largest_quake_title"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
             <FrameLayout
@@ -402,7 +390,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginLeft="8dp"
-                android:text="Deepest"
+                android:text="@string/deepest_quake_title"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
             <FrameLayout
@@ -473,7 +461,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginLeft="8dp"
-                android:text="Shallowest"
+                android:text="@string/shallowest_quake_title"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
             <FrameLayout
@@ -539,4 +527,5 @@
             </FrameLayout>
         </LinearLayout>
     </ScrollView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

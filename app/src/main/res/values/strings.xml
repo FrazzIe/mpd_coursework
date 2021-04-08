@@ -1,5 +1,20 @@
 <resources>
     <string name="app_name">Quake Viewer</string>
+    <string name="quake_title">Recent Earthquakes</string>
+    <string name="quake_filter">Filter</string>
     <string name="quake_location_label">Location</string>
     <string name="quake_magnitude_label">Magnitude</string>
+    <string name="info_title">Earthquake Info</string>
+    <string name="info_date_label">Date</string>
+    <string name="info_location_label">Location</string>
+    <string name="info_magnitude_label">Magnitude</string>
+    <string name="info_depth_label">Depth</string>
+    <string name="filter_title">Filter Results</string>
+    <string name="north_quake_title">Most North</string>
+    <string name="south_quake_title">Most South</string>
+    <string name="west_quake_title">Most West</string>
+    <string name="east_quake_title">Most East</string>
+    <string name="largest_quake_title">Largest</string>
+    <string name="deepest_quake_title">Deepest</string>
+    <string name="shallowest_quake_title">Shallowest</string>
 </resources>
