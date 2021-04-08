@@ -87,7 +87,7 @@ public class QuakeList {
         QuakeItem shallowestQuake = null;
 
         List<QuakeItem> filteredQuakes = this.quakes.stream()
-                .filter(item -> item.getOrigin().after(fromDate) && item.getOrigin().before(toDate))
+                .filter(item -> item.getOrigin().compareTo(fromDate) >= 0 && item.getOrigin().compareTo(toDate) <= 0)
                 .collect(Collectors.toList());
 
         int filterSize = filteredQuakes.size();
