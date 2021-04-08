@@ -58,6 +58,7 @@ public class QuakeList {
         this.mostWestQuake = null;
         this.mostEastQuake = null;
         this.largestQuake = null;
+        this.deepestQuake = null;
         this.shallowestQuake = null;
         this.oldestQuake = null;
         this.newestQuake = null;
