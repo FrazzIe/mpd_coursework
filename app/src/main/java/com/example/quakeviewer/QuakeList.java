@@ -71,7 +71,62 @@ public class QuakeList {
         quakeTask.execute(this.dataSrc);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     public void OpenDateRange(Date fromDate, Date toDate) {
+        QuakeItem mostNorthQuake = null;
+        QuakeItem mostSouthQuake = null;
+        QuakeItem mostWestQuake = null;
+        QuakeItem mostEastQuake = null;
+        QuakeItem largestQuake = null;
+        QuakeItem deepestQuake = null;
+        QuakeItem shallowestQuake = null;
+
+        List<QuakeItem> filteredQuakes = this.quakes.stream()
+                .filter(item -> item.getOrigin().after(fromDate) && item.getOrigin().before(toDate))
+                .collect(Collectors.toList());
+
+        int filterSize = filteredQuakes.size();
+
+        if (filterSize == 0)
+            return;
+
+        QuakeItem item = filteredQuakes.get(0);
+        mostNorthQuake = item;
+        mostSouthQuake = item;
+        mostWestQuake = item;
+        mostEastQuake = item;
+        largestQuake = item;
+        deepestQuake = item;
+        shallowestQuake = item;
+
+        if (filterSize > 1) {
+            for (int i = 1; i < filterSize; i++) {
+                item = filteredQuakes.get(i);
+                if (item.IsMoreNorth(mostNorthQuake))
+                    mostNorthQuake = item;
+                if (!item.IsMoreNorth(mostSouthQuake))
+                    mostSouthQuake = item;
+                if (item.IsMoreEast(mostEastQuake))
+                    mostEastQuake = item;
+                if (!item.IsMoreEast(mostWestQuake))
+                    mostWestQuake = item;
+                if (item.IsLarger(largestQuake))
+                    largestQuake = item;
+                if (item.IsDeeper(deepestQuake))
+                    deepestQuake = item;
+                if (!item.IsDeeper(shallowestQuake))
+                    shallowestQuake = item;
+            }
+        }
+
+        ArrayList<QuakeItem> quakeData = new ArrayList<>();
+        quakeData.add(mostNorthQuake);
+        quakeData.add(mostSouthQuake);
+        quakeData.add(mostWestQuake);
+        quakeData.add(mostEastQuake);
+        quakeData.add(largestQuake);
+        quakeData.add(deepestQuake);
+        quakeData.add(shallowestQuake);
 
     }
 
