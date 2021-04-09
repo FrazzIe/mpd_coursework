@@ -17,4 +17,5 @@
     <string name="largest_quake_title">Largest</string>
     <string name="deepest_quake_title">Deepest</string>
     <string name="shallowest_quake_title">Shallowest</string>
+    <string name="alert_dialog_ok">ok</string>
 </resources>

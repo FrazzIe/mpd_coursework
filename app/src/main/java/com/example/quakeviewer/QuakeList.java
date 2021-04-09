@@ -10,6 +10,7 @@ import android.util.Xml;
 import android.widget.Button;
 
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -32,9 +33,11 @@ import java.util.stream.Collectors;
 
 // S1916169 - Fraser Watt (Plagiarism check)
 public class QuakeList {
+    //vars
     private URL dataSrc;
     private AppCompatActivity uiActivity;
     private DatePickerDialog datePicker;
+    private AlertDialog alertDialog;
     private List<QuakeItem> quakes;
     private QuakeItem mostNorthQuake;
     private QuakeItem mostSouthQuake;
@@ -48,6 +51,7 @@ public class QuakeList {
     private Handler refreshHandler;
     private Runnable refreshRunnable;
 
+    //getters
     public List<QuakeItem> getQuakes() { return this.quakes; }
     public QuakeItem getMostNorthQuake() { return this.mostNorthQuake; }
     public QuakeItem getMostSouthQuake() { return this.mostSouthQuake; }
@@ -59,10 +63,11 @@ public class QuakeList {
     public QuakeItem getOldestQuake() { return this.oldestQuake; }
     public QuakeItem getNewestQuake() { return this.newestQuake; }
 
-    public QuakeList(URL url, AppCompatActivity uiActivity, DatePickerDialog datePicker) {
+    public QuakeList(URL url, AppCompatActivity uiActivity, DatePickerDialog datePicker, AlertDialog alertDialog) {
         this.dataSrc = url;
         this.uiActivity = uiActivity;
         this.datePicker = datePicker;
+        this.alertDialog = alertDialog;
         this.quakes = new ArrayList<QuakeItem>();
         this.mostNorthQuake = null;
         this.mostSouthQuake = null;
@@ -87,12 +92,15 @@ public class QuakeList {
         this.refreshHandler.post(refreshRunnable);
     }
 
+    //Refresh the list of earthquakes
+    //Pulls and parses the latest RSS Feed
     public void Refresh() {
         Log.e("INFO", "STARTING REFRESH");
         QuakeTask quakeTask = new QuakeTask();
         quakeTask.execute(this.dataSrc);
     }
 
+    //Filter list of earthquakes to a specific date or date range
     @RequiresApi(api = Build.VERSION_CODES.N)
     public void OpenDateRange(Date fromDate, Date toDate) {
         QuakeItem mostNorthQuake = null;
@@ -108,36 +116,52 @@ public class QuakeList {
                 .collect(Collectors.toList());
 
         int filterSize = filteredQuakes.size();
+        int mainSize = this.quakes.size();
 
-        if (filterSize == 0)
+        if (filterSize == 0) {
+            alertDialog.setTitle("Warning");
+            alertDialog.setMessage("No earthquakes found within the date range specified!");
+            alertDialog.show();
             return;
+        }
 
-        QuakeItem item = filteredQuakes.get(0);
-        mostNorthQuake = item;
-        mostSouthQuake = item;
-        mostWestQuake = item;
-        mostEastQuake = item;
-        largestQuake = item;
-        deepestQuake = item;
-        shallowestQuake = item;
+        //Skips calcs if the filter data contains the same amount as the original
+        if (filterSize == mainSize) {
+            mostNorthQuake = this.mostNorthQuake;
+            mostSouthQuake = this.mostSouthQuake;
+            mostWestQuake = this.mostWestQuake;
+            mostEastQuake = this.mostEastQuake;
+            largestQuake = this.largestQuake;
+            deepestQuake = this.deepestQuake;
+            shallowestQuake = this.shallowestQuake;
+        } else {
+            QuakeItem item = filteredQuakes.get(0);
+            mostNorthQuake = item;
+            mostSouthQuake = item;
+            mostWestQuake = item;
+            mostEastQuake = item;
+            largestQuake = item;
+            deepestQuake = item;
+            shallowestQuake = item;
 
-        if (filterSize > 1) {
-            for (int i = 1; i < filterSize; i++) {
-                item = filteredQuakes.get(i);
-                if (item.IsMoreNorth(mostNorthQuake))
-                    mostNorthQuake = item;
-                if (!item.IsMoreNorth(mostSouthQuake))
-                    mostSouthQuake = item;
-                if (item.IsMoreEast(mostEastQuake))
-                    mostEastQuake = item;
-                if (!item.IsMoreEast(mostWestQuake))
-                    mostWestQuake = item;
-                if (item.IsLarger(largestQuake))
-                    largestQuake = item;
-                if (item.IsDeeper(deepestQuake))
-                    deepestQuake = item;
-                if (!item.IsDeeper(shallowestQuake))
-                    shallowestQuake = item;
+            if (filterSize > 1) {
+                for (int i = 1; i < filterSize; i++) {
+                    item = filteredQuakes.get(i);
+                    if (item.IsMoreNorth(mostNorthQuake))
+                        mostNorthQuake = item;
+                    if (!item.IsMoreNorth(mostSouthQuake))
+                        mostSouthQuake = item;
+                    if (item.IsMoreEast(mostEastQuake))
+                        mostEastQuake = item;
+                    if (!item.IsMoreEast(mostWestQuake))
+                        mostWestQuake = item;
+                    if (item.IsLarger(largestQuake))
+                        largestQuake = item;
+                    if (item.IsDeeper(deepestQuake))
+                        deepestQuake = item;
+                    if (!item.IsDeeper(shallowestQuake))
+                        shallowestQuake = item;
+                }
             }
         }
 
@@ -155,6 +179,7 @@ public class QuakeList {
         uiActivity.startActivity(intent);
     }
 
+    //Add earthquake to the list
     private void AddQuake(QuakeItem item) {
         this.quakes.add(item);
 
