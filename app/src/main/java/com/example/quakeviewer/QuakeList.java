@@ -86,14 +86,14 @@ public class QuakeList {
         this.refreshRunnable = new Runnable() {
             @Override
             public void run() {
-                refreshHandler.postDelayed(this, 900000);
                 Log.i(infoTag, "Auto-refresh");
                 Refresh();
+                refreshHandler.postDelayed(this, 900000);
             }
         };
 
         Log.i(infoTag, "Init auto refresh task");
-        this.refreshHandler.post(refreshRunnable);
+        this.refreshHandler.postDelayed(refreshRunnable, 900000);
     }
 
     //Refresh the list of earthquakes

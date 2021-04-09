@@ -94,6 +94,7 @@ public class MainActivity extends AppCompatActivity {
             Log.i(infoTag, "Set filter button click listener");
             Button uiFilterBtn = (Button) findViewById(R.id.quake_filter_button);
             uiFilterBtn.setOnClickListener(view -> {
+                Log.i(infoTag, "Filter button pressed, opening date picker");
                 datePickerDialog.show(getFragmentManager(), "datePickerDialog");
             });
 
