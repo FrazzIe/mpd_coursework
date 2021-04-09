@@ -31,4 +31,4 @@ An android app that reads in seismic activity from an RSS Feed specifically one 
 
 ## Screenshots
 
-![sample](./pdf/sample.png)
+![sample](./external/sample.png)
