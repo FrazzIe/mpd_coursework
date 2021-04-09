@@ -28,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private AlertDialog alertDialog;
     private String quakeFeedUrl = "https://quakes.bgs.ac.uk/feeds/MhSeismology.xml";
+    private final String infoTag = "MainActivity";
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
@@ -35,22 +36,26 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Log.i(infoTag, "Init main view");
         //Setup RecyclerView layout
         RecyclerView uiRecyclerView = (RecyclerView) findViewById(R.id.quake_list);
         RecyclerView.LayoutManager uiRecyclerLayout = new GridLayoutManager(this, 1);
+        Log.i(infoTag, "Set recycler layout");
         uiRecyclerView.setLayoutManager(uiRecyclerLayout);
+
 
         //Set toolbar as action bar
         toolbar = (Toolbar) findViewById(R.id.main_toolbar);
+        Log.i(infoTag, "Set toolbar as action bar");
         setSupportActionBar(toolbar);
-
-        Log.d("INFO", "STARTED");
 
         try {
             //Setup feed URL
+            Log.i(infoTag, "Parse RSS Feed URL");
             URL feed = new URL(quakeFeedUrl);
 
             //Setup date picker
+            Log.i(infoTag, "Init date picker");
             Calendar now = Calendar.getInstance();
             DatePickerDialog datePickerDialog = DatePickerDialog.newInstance(null,
                     now.get(Calendar.YEAR),
@@ -58,13 +63,16 @@ public class MainActivity extends AppCompatActivity {
                     now.get(Calendar.DAY_OF_MONTH)
             );
 
+            Log.i(infoTag, "Init alert dialog");
             this.alertDialog = createAlertDialog("", "");
 
             //Initialise Dynamic Earthquake List
+            Log.i(infoTag, "Init QuakeList");
             QuakeList quakeList = new QuakeList(feed, this, datePickerDialog, this.alertDialog);
 
             //Setup date picker callback after quakeList is defined
             //Filter Earthquakes on callback
+            Log.i(infoTag, "Init date picker on selected callback");
             DatePickerDialog.OnDateSetListener datePickerDialogCallback = new DatePickerDialog.OnDateSetListener() {
                 @Override
                 public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth, int yearEnd, int monthOfYearEnd, int dayOfMonthEnd) {
@@ -79,15 +87,18 @@ public class MainActivity extends AppCompatActivity {
                 }
             };
 
+            Log.i(infoTag, "Set date picker callback");
             datePickerDialog.setOnDateSetListener(datePickerDialogCallback);
 
             //Add click event listener to open the date picker
+            Log.i(infoTag, "Set filter button click listener");
             Button uiFilterBtn = (Button) findViewById(R.id.quake_filter_button);
             uiFilterBtn.setOnClickListener(view -> {
                 datePickerDialog.show(getFragmentManager(), "datePickerDialog");
             });
 
             //Add refresh listener to refresh earthquake list on swipe up
+            Log.i(infoTag, "Set swipe on refresh listener");
             SwipeRefreshLayout uiRefreshLayout = findViewById(R.id.quake_swipe_container);
             uiRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
                 @Override
@@ -102,6 +113,7 @@ public class MainActivity extends AppCompatActivity {
 
     // https://stackoverflow.com/a/36747438
     private AlertDialog createAlertDialog(String msg, String title) {
+        Log.i(infoTag, "Build alert dialog");
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage(msg)
                 .setTitle(title)

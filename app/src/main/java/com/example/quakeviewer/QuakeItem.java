@@ -1,5 +1,7 @@
 package com.example.quakeviewer;
 
+import android.util.Log;
+
 import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -14,6 +16,7 @@ public class QuakeItem implements Serializable {
     private Double latitude;
     private Double longitude;
     private Double magnitude;
+    private final String infoTag = "QuakeItem";
 
     public Date getOrigin() { return this.origin; }
     public String getLocation() { return this.location; }
@@ -24,6 +27,8 @@ public class QuakeItem implements Serializable {
     public Double getMag() { return this.magnitude; }
 
     public QuakeItem(String data, String latitude, String longitude) {
+        Log.i(infoTag, "Init");
+        Log.i(infoTag, "Split item data");
         String[] fields = data.split(";");
         String[] depthInfo = getFieldValue(fields[3]).split(" ");
 
@@ -42,6 +47,7 @@ public class QuakeItem implements Serializable {
     }
 
     private String getFieldValue(String field) {
+        Log.i(infoTag, "Fetch value from field");
         int valueIdx = field.indexOf(':');
 
         if (valueIdx == -1)
@@ -52,12 +58,14 @@ public class QuakeItem implements Serializable {
 
     private Date getOriginValue(String field) throws ParseException {
         String origin = getFieldValue(field);
+        Log.i(infoTag, "Fetch date from str");
         SimpleDateFormat formatter = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss");
         return formatter.parse(origin);
     }
 
     private String getLocationValue(String field) {
         String location = getFieldValue(field).toLowerCase();
+        Log.i(infoTag, "Capitialise location value");
         String[] locations = location.split(",");
 
         location = locations[0].substring(0, 1).toUpperCase() + locations[0].substring(1).toLowerCase();;

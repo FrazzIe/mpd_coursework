@@ -6,6 +6,7 @@ import androidx.cardview.widget.CardView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -14,19 +15,25 @@ import java.util.ArrayList;
 // S1916169 - Fraser Watt (Plagiarism check)
 public class QuakeDateFilter extends AppCompatActivity {
     private Toolbar toolbar;
+    private final String infoTag = "QuakeDateFilter";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quake_date_filter);
+
+        Log.i(infoTag, "Init filter view");
+        Log.i(infoTag, "Get passed data");
         Intent intent = getIntent();
+        Log.i(infoTag, "Get quake data");
         ArrayList<QuakeItem> quakeData = (ArrayList<QuakeItem>) intent.getSerializableExtra("QuakeData");
 
         toolbar = (Toolbar) findViewById(R.id.filter_toolbar);
         toolbar.setTitle(R.string.filter_title);
+        Log.i(infoTag, "Set toolbar as action bar");
         setSupportActionBar(toolbar);
 
-
+        Log.i(infoTag, "Get all dynamic text views");
         TextView northQuakeLocation = findViewById(R.id.north_quake_location);
         TextView northQuakeMagnitude = findViewById(R.id.north_quake_magnitude);
         TextView southQuakeLocation = findViewById(R.id.south_quake_location);
@@ -42,6 +49,7 @@ public class QuakeDateFilter extends AppCompatActivity {
         TextView shallowestQuakeLocation = findViewById(R.id.shallowest_quake_location);
         TextView shallowestQuakeMagnitude = findViewById(R.id.shallowest_quake_magnitude);
 
+        Log.i(infoTag, "Set text view dynamic data");
         northQuakeLocation.setText(quakeData.get(0).getLocation());
         northQuakeMagnitude.setText(quakeData.get(0).getMag().toString());
         northQuakeMagnitude.setTextColor(getMagnitudeColor(quakeData.get(0).getMag()));
@@ -64,6 +72,7 @@ public class QuakeDateFilter extends AppCompatActivity {
         shallowestQuakeMagnitude.setText(quakeData.get(6).getMag().toString());
         shallowestQuakeMagnitude.setTextColor(getMagnitudeColor(quakeData.get(6).getMag()));
 
+        Log.i(infoTag, "Get all dynamic card views");
         CardView northQuakeCard = (CardView) findViewById(R.id.north_quake_card);
         CardView southQuakeCard = (CardView) findViewById(R.id.south_quake_card);
         CardView westQuakeCard = (CardView) findViewById(R.id.west_quake_card);
@@ -72,6 +81,7 @@ public class QuakeDateFilter extends AppCompatActivity {
         CardView deepestQuakeCard = (CardView) findViewById(R.id.deepest_quake_card);
         CardView shallowestQuakeCard = (CardView) findViewById(R.id.shallowest_quake_card);
 
+        Log.i(infoTag, "Add click listeners to dynamic card views");
         northQuakeCard.setOnClickListener(getOnClickListener(quakeData.get(0)));
         southQuakeCard.setOnClickListener(getOnClickListener(quakeData.get(1)));
         westQuakeCard.setOnClickListener(getOnClickListener(quakeData.get(2)));
@@ -85,6 +95,8 @@ public class QuakeDateFilter extends AppCompatActivity {
         return new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Log.i(infoTag, "Open QuakeDetails view");
+                Log.i(infoTag, "Pack quake details");
                 Intent intent = new Intent(view.getContext(), QuakeDetails.class);
                 intent.putExtra("origin", item.getOrigin().getTime());
                 intent.putExtra("location", item.getLocation());
@@ -93,12 +105,14 @@ public class QuakeDateFilter extends AppCompatActivity {
                 intent.putExtra("latitude", item.getLat());
                 intent.putExtra("longitude", item.getLong());
                 intent.putExtra("magnitude", item.getMag());
+                Log.i(infoTag, "Send quake details");
                 view.getContext().startActivity(intent);
             }
         };
     }
 
     private int getMagnitudeColor(Double magnitude) {
+        Log.i(infoTag, "Fetch quake magnitude colour");
         if (magnitude < 2.0)
             return getResources().getColor(R.color.quake_not_felt);
         if (magnitude < 3.8)

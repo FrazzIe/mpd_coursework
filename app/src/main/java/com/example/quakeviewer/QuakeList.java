@@ -50,6 +50,7 @@ public class QuakeList {
     private QuakeItem newestQuake;
     private Handler refreshHandler;
     private Runnable refreshRunnable;
+    private final String infoTag = "QuakeList";
 
     //getters
     public List<QuakeItem> getQuakes() { return this.quakes; }
@@ -64,6 +65,7 @@ public class QuakeList {
     public QuakeItem getNewestQuake() { return this.newestQuake; }
 
     public QuakeList(URL url, AppCompatActivity uiActivity, DatePickerDialog datePicker, AlertDialog alertDialog) {
+        Log.i(infoTag, "Init");
         this.dataSrc = url;
         this.uiActivity = uiActivity;
         this.datePicker = datePicker;
@@ -85,17 +87,19 @@ public class QuakeList {
             @Override
             public void run() {
                 refreshHandler.postDelayed(this, 900000);
+                Log.i(infoTag, "Auto-refresh");
                 Refresh();
             }
         };
 
+        Log.i(infoTag, "Init auto refresh task");
         this.refreshHandler.post(refreshRunnable);
     }
 
     //Refresh the list of earthquakes
     //Pulls and parses the latest RSS Feed
     public void Refresh() {
-        Log.e("INFO", "STARTING REFRESH");
+        Log.i(infoTag, "Begin list refresh");
         QuakeTask quakeTask = new QuakeTask();
         quakeTask.execute(this.dataSrc);
     }
@@ -111,6 +115,7 @@ public class QuakeList {
         QuakeItem deepestQuake = null;
         QuakeItem shallowestQuake = null;
 
+        Log.i(infoTag, "Filter list items (fromDate/toDate)");
         List<QuakeItem> filteredQuakes = this.quakes.stream()
                 .filter(item -> item.getOrigin().compareTo(fromDate) >= 0 && item.getOrigin().compareTo(toDate) <= 0)
                 .collect(Collectors.toList());
@@ -118,7 +123,9 @@ public class QuakeList {
         int filterSize = filteredQuakes.size();
         int mainSize = this.quakes.size();
 
+        Log.i(infoTag, "Check if filtered list is empty");
         if (filterSize == 0) {
+            Log.i(infoTag, "Show empty list warning");
             alertDialog.setTitle("Warning");
             alertDialog.setMessage("No earthquakes found within the date range specified!");
             alertDialog.show();
@@ -126,6 +133,7 @@ public class QuakeList {
         }
 
         //Skips calcs if the filter data contains the same amount as the original
+        Log.i(infoTag, "Check if filtered list matches the main list");
         if (filterSize == mainSize) {
             mostNorthQuake = this.mostNorthQuake;
             mostSouthQuake = this.mostSouthQuake;
@@ -135,6 +143,7 @@ public class QuakeList {
             deepestQuake = this.deepestQuake;
             shallowestQuake = this.shallowestQuake;
         } else {
+            Log.i(infoTag, "Find filtered quake stats (north/south/west/east/largest/deepest/shallowest)");
             QuakeItem item = filteredQuakes.get(0);
             mostNorthQuake = item;
             mostSouthQuake = item;
@@ -165,6 +174,7 @@ public class QuakeList {
             }
         }
 
+        Log.i(infoTag, "Pack filtered statistical data");
         ArrayList<QuakeItem> quakeData = new ArrayList<>();
         quakeData.add(mostNorthQuake);
         quakeData.add(mostSouthQuake);
@@ -174,6 +184,7 @@ public class QuakeList {
         quakeData.add(deepestQuake);
         quakeData.add(shallowestQuake);
 
+        Log.i(infoTag, "Open QuakeDateFilter view");
         Intent intent = new Intent(uiActivity.getApplicationContext(), QuakeDateFilter.class);
         intent.putExtra("QuakeData",  quakeData);
         uiActivity.startActivity(intent);
@@ -181,9 +192,11 @@ public class QuakeList {
 
     //Add earthquake to the list
     private void AddQuake(QuakeItem item) {
+        Log.i(infoTag, "Add item to Quake");
         this.quakes.add(item);
 
         if (this.quakes.size() == 1) {
+            Log.i(infoTag, "Init statistical data");
             this.mostNorthQuake = item;
             this.mostSouthQuake = item;
             this.mostWestQuake = item;
@@ -196,6 +209,7 @@ public class QuakeList {
             return;
         }
 
+        Log.i(infoTag, "Compare statistical data");
         if (item.IsMoreNorth(this.mostNorthQuake))
             this.mostNorthQuake = item;
         if (!item.IsMoreNorth(this.mostSouthQuake))
@@ -218,6 +232,7 @@ public class QuakeList {
 
     //Clear list items
     private void ClearQuakes() {
+        Log.i(infoTag, "Clear list");
         this.quakes.clear();
         this.mostNorthQuake = null;
         this.mostSouthQuake = null;
@@ -231,19 +246,22 @@ public class QuakeList {
 
     //Parse XML input to QuakeItem
     private Boolean ParseFeed(InputStream feedStream) {
-        Log.e("INFO", "PARSING FEED");
+        Log.i(infoTag, "Start feed parse");
         ClearQuakes();
 
         try {
+            Log.i(infoTag, "Init XML Parser");
             XmlPullParser xmlPullParser = Xml.newPullParser();
             xmlPullParser.setInput(feedStream, null);
             xmlPullParser.nextTag();
 
+            Log.i(infoTag, "Init temp parse vars");
             Boolean quakeItem = false;
             String quakeData = null;
             String quakeLat = null;
             String quakeLong = null;
 
+            Log.i(infoTag, "Loop through XML data");
             while (xmlPullParser.next() != xmlPullParser.END_DOCUMENT) {
                 int eventType = xmlPullParser.getEventType();
                 String name = xmlPullParser.getName();
@@ -296,6 +314,7 @@ public class QuakeList {
         } finally {
             //Close the stream after XML is parsed
             try {
+                Log.i(infoTag, "Close XML data stream");
                 feedStream.close();
             } catch (IOException e) {
                 Log.e("e", "Error", e);
@@ -315,23 +334,27 @@ public class QuakeList {
 
         @Override
         protected void onPreExecute() {
-            Log.e("INFO", "PRE EXECUTE");
+            Log.i(infoTag, "Setup UI for refresh Task");
+            Log.i(infoTag, "Disable filter button");
             Button uiFilterBtn = (Button) uiActivity.findViewById(R.id.quake_filter_button);
             uiFilterBtn.setClickable(false);
 
+            Log.i(infoTag, "Show refresh spinner");
             SwipeRefreshLayout uiRefreshLayout = uiActivity.findViewById(R.id.quake_swipe_container);
             uiRefreshLayout.setRefreshing(true);
         }
 
         @Override
         protected Boolean doInBackground(URL... urls) {
-            Log.e("INFO", "DO IN BACKGROUND");
+            Log.i(infoTag, "Start refresh");
             if (urls.length == 0)
                 return false;
 
             try {
                 URL feed = urls[0];
+                Log.i(infoTag, "Open connection");
                 URLConnection feedConnection = feed.openConnection();
+                Log.i(infoTag, "Fetch input stream");
                 InputStream feedStream = feedConnection.getInputStream();
                 return ParseFeed(feedStream);
             } catch (IOException e) {
@@ -343,17 +366,21 @@ public class QuakeList {
 
         @Override
         protected void onPostExecute(Boolean success) {
-            Log.e("INFO", "POST EXECUTE");
+            Log.i(infoTag, "On refresh completion");
             RecyclerView.Adapter<QuakeAdapter.ViewHolder> uiRecyclerAdapter = new QuakeAdapter(getQuakes());
             RecyclerView uiRecyclerView = (RecyclerView) uiActivity.findViewById(R.id.quake_list);
+            Log.i(infoTag, "Set quake items in ui view");
             uiRecyclerView.setAdapter(uiRecyclerAdapter);
 
+            Log.i(infoTag, "Restrict date picker (min/max date)");
             datePicker.setMinDate(dateToCalendar(getOldestQuake().getOrigin()));
             datePicker.setMaxDate(dateToCalendar(getNewestQuake().getOrigin()));
 
+            Log.i(infoTag, "Enable filter button");
             Button uiFilterBtn = (Button) uiActivity.findViewById(R.id.quake_filter_button);
             uiFilterBtn.setClickable(true);
 
+            Log.i(infoTag, "Remove refresh spinner");
             SwipeRefreshLayout uiRefreshLayout = uiActivity.findViewById(R.id.quake_swipe_container);
             uiRefreshLayout.setRefreshing(false);
         }
