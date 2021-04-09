@@ -47,22 +47,22 @@ public class QuakeDateFilter extends AppCompatActivity {
         northQuakeMagnitude.setTextColor(getMagnitudeColor(quakeData.get(0).getMag()));
         southQuakeLocation.setText(quakeData.get(1).getLocation());
         southQuakeMagnitude.setText(quakeData.get(1).getMag().toString());
-        southQuakeMagnitude.setTextColor(getMagnitudeColor(quakeData.get(0).getMag()));
+        southQuakeMagnitude.setTextColor(getMagnitudeColor(quakeData.get(1).getMag()));
         westQuakeLocation.setText(quakeData.get(2).getLocation());
         westQuakeMagnitude.setText(quakeData.get(2).getMag().toString());
-        westQuakeMagnitude.setTextColor(getMagnitudeColor(quakeData.get(0).getMag()));
+        westQuakeMagnitude.setTextColor(getMagnitudeColor(quakeData.get(2).getMag()));
         eastQuakeLocation.setText(quakeData.get(3).getLocation());
         eastQuakeMagnitude.setText(quakeData.get(3).getMag().toString());
-        eastQuakeMagnitude.setTextColor(getMagnitudeColor(quakeData.get(0).getMag()));
+        eastQuakeMagnitude.setTextColor(getMagnitudeColor(quakeData.get(3).getMag()));
         largestQuakeLocation.setText(quakeData.get(4).getLocation());
         largestQuakeMagnitude.setText(quakeData.get(4).getMag().toString());
-        largestQuakeMagnitude.setTextColor(getMagnitudeColor(quakeData.get(0).getMag()));
+        largestQuakeMagnitude.setTextColor(getMagnitudeColor(quakeData.get(4).getMag()));
         deepestQuakeLocation.setText(quakeData.get(5).getLocation());
         deepestQuakeMagnitude.setText(quakeData.get(5).getMag().toString());
-        deepestQuakeMagnitude.setTextColor(getMagnitudeColor(quakeData.get(0).getMag()));
+        deepestQuakeMagnitude.setTextColor(getMagnitudeColor(quakeData.get(5).getMag()));
         shallowestQuakeLocation.setText(quakeData.get(6).getLocation());
         shallowestQuakeMagnitude.setText(quakeData.get(6).getMag().toString());
-        shallowestQuakeMagnitude.setTextColor(getMagnitudeColor(quakeData.get(0).getMag()));
+        shallowestQuakeMagnitude.setTextColor(getMagnitudeColor(quakeData.get(6).getMag()));
 
         CardView northQuakeCard = (CardView) findViewById(R.id.north_quake_card);
         CardView southQuakeCard = (CardView) findViewById(R.id.south_quake_card);
