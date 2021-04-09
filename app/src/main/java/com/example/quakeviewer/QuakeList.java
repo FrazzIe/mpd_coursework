@@ -216,6 +216,7 @@ public class QuakeList {
             this.oldestQuake = item;
     }
 
+    //Clear list items
     private void ClearQuakes() {
         this.quakes.clear();
         this.mostNorthQuake = null;
@@ -228,6 +229,7 @@ public class QuakeList {
         this.newestQuake = null;
     }
 
+    //Parse XML input to QuakeItem
     private Boolean ParseFeed(InputStream feedStream) {
         Log.e("INFO", "PARSING FEED");
         ClearQuakes();
@@ -287,12 +289,23 @@ public class QuakeList {
             }
         } catch (IOException e) {
             Log.e("e", "Error", e);
+            return false;
         } catch (XmlPullParserException e) {
             Log.e("e", "Error", e);
+            return false;
+        } finally {
+            //Close the stream after XML is parsed
+            try {
+                feedStream.close();
+            } catch (IOException e) {
+                Log.e("e", "Error", e);
+            }
         }
+
         return true;
     }
 
+    //Async background task used for pulling data from the RSS Feed and updating the UI
     private class QuakeTask extends AsyncTask<URL, Integer, Boolean> {
         private Calendar dateToCalendar(Date date) {
             Calendar calendar = Calendar.getInstance();
